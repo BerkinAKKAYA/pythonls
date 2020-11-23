@@ -1,3 +1,7 @@
+# Color Codes For Terminal Output
+# Prepend to the text
+# Example: print('\33[32m GREEN TEXT')
+
 BLACK  = '\33[30m'
 GREY    = '\33[90m'
 WHITE  = '\33[37m'
