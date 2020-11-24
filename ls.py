@@ -4,6 +4,13 @@ import colors
 import icons
 
 args = sys.argv[1:]
+directoriesToList = []
+
+for arg in args:
+    if arg[0] != "-":
+        directoriesToList.append(arg)
+
+directoriesToList = directoriesToList or ["."]
 
 def PrintItem(itemType, itemName, indent=0):
     prepend = " " * indent
@@ -19,7 +26,11 @@ def PrintItem(itemType, itemName, indent=0):
 
     print(prepend, itemName)
 
-def PrintDirectory(path):
+def PrintDirectory(path, indent=0):
+    # Convert path to Full Path
+    if path[0] != "/":
+        path = os.getcwd() + "/" + (path if path != "." else "")
+
     folders = []
     files = {
         "VIDEO": [],
@@ -33,7 +44,7 @@ def PrintDirectory(path):
             continue
         
         # Print as FOLDER and continue if it's a folder
-        if os.path.isdir(item):
+        if os.path.isdir(path + item):
             folders.append(item)
             continue
 
@@ -42,7 +53,7 @@ def PrintDirectory(path):
 
         # If there is no extension, print as FILE and continue
         if not extension:
-            files["FILE"].append(["FILE", item])
+            files["FILE"].append(item)
             continue
 
         # If there is an extension, print with correct icon and color
@@ -52,12 +63,16 @@ def PrintDirectory(path):
             files["PHOTO"].append(item)
 
     for folder in sorted(folders):
-        PrintItem("FOLDER", folder)
+        PrintItem("FOLDER", folder, indent)
 
     for fileType in files:
         files[fileType].sort()
 
         for f in files[fileType]:
-            PrintItem(fileType, f)
+            PrintItem(fileType, f, indent)
 
-PrintDirectory(".")
+for directory in directoriesToList:
+    if len(directoriesToList) > 1:
+        print(colors.GREY, directory)
+
+    PrintDirectory(directory, 2)
