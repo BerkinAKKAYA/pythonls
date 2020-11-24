@@ -1,2 +1,4 @@
 FILE = "  "
 FOLDER = "  "
+VIDEO = "  "
+PHOTO = "  "

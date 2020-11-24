@@ -1,0 +1,5 @@
+-   [x] List folders before files
+-   [ ] Functionality to accept multiple folders as input
+-   [ ] Add --tree=DEPTH flag
+-   [ ] Add --sort=EXTENSION and --sort=NAME flags
+-   [ ] Show different icons for images, videos and others
