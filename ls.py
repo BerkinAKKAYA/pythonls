@@ -1,22 +1,36 @@
+# TODO: Add the option to accept multiple folders as input
+
 import os
 import sys
 import colors
 import icons
 
 args = sys.argv[1:]
-files = os.listdir('.')
+filesAndFolders = os.listdir('.')
 indent = " " * 2
 
+for folderName in [x for x in args if x[0] != "-"]:
+    print(folderName)
+    filesAndFolders = os.listdir(folderName)
+
+# Hide dotfiles if "-a" flag is not passed
 if "-a" not in args:
-    files = [f for f in files if f[0] != "."]
+    filesAndFolders = [f for f in filesAndFolders if f[0] != "."]
 
-files.sort()
+files = []
+folders = []
 
-for f in files:
+for f in filesAndFolders:
     fullPath = os.getcwd() + "/" + f
     isFolder = os.path.isdir(fullPath)
 
     if isFolder:
-        print(indent + colors.BLUE + icons.FOLDER + f)
+        folders.append(f)
     else:
-        print(indent + colors.RED + icons.FILE + f)
+        files.append(f)
+
+for folderName in folders:
+    print(indent + colors.BLUE + icons.FOLDER + folderName)
+
+for fileName in files:
+    print(indent + colors.RED + icons.FILE + fileName)
