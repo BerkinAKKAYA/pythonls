@@ -20,9 +20,9 @@ def PrintItem(itemType, itemName, indent=0):
     if itemType == "FILE":
         prepend += colors.BLUE2 + icons.FILE
     if itemType == "VIDEO":
-        prepend += colors.BLUE2 + icons.VIDEO
+        prepend += colors.GREEN2 + icons.VIDEO
     if itemType == "PHOTO":
-        prepend += colors.BLUE2 + icons.PHOTO
+        prepend += colors.YELLOW2 + icons.PHOTO
 
     print(prepend, itemName)
 
@@ -30,6 +30,8 @@ def PrintDirectory(path, indent=0):
     # Convert path to Full Path
     if path[0] != "/":
         path = os.getcwd() + "/" + (path if path != "." else "")
+    if path[-1] != "/":
+        path += "/"
 
     folders = []
     files = {
@@ -51,16 +53,12 @@ def PrintDirectory(path, indent=0):
         # Find out the extension
         extension = item.split(".")[-1] if "." in item[1:] else ""
 
-        # If there is no extension, print as FILE and continue
-        if not extension:
-            files["FILE"].append(item)
-            continue
-
-        # If there is an extension, print with correct icon and color
         if extension in ["mkv", "mp4", "webm"]:
             files["VIDEO"].append(item)
-        if extension in ["jpg", "jpeg", "png"]:
+        elif extension in ["jpg", "jpeg", "png"]:
             files["PHOTO"].append(item)
+        else:
+            files["FILE"].append(item)
 
     for folder in sorted(folders):
         PrintItem("FOLDER", folder, indent)
