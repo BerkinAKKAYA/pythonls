@@ -70,7 +70,9 @@ def PrintDirectory(path, indent=0):
             PrintItem(fileType, f, indent)
 
 for directory in directoriesToList:
-    if len(directoriesToList) > 1:
+    # If listing multiple directories, print directory names
+    if len(directoriesToList) > 1 and os.path.isdir(directory):
         print(colors.GREY, directory)
 
-    PrintDirectory(directory, 2)
+    if os.path.isdir(directory):
+        PrintDirectory(directory, 2)
