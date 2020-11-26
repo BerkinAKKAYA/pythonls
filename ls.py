@@ -5,7 +5,7 @@ import icons
 
 args = sys.argv[1:]
 directoriesToList = []
-depth = 0
+depth = 1
 
 for arg in args:
     if arg[0] != "-":
@@ -31,8 +31,8 @@ def PrintItem(itemType, itemName, indent=0):
 
     print(prepend, itemName)
 
-def PrintDirectory(path, indent=0, depth=0):
-    # Convert path to Full Path
+def PrintDirectory(path, indent=0, depth=1):
+    " Convert path to Full Path "
     if path[0] != "/":
         path = os.getcwd() + "/" + (path if path != "." else "")
     if path[-1] != "/":
@@ -78,7 +78,10 @@ def PrintDirectory(path, indent=0, depth=0):
             PrintItem(fileType, f, indent)
 
 for directory in directoriesToList:
-    # If listing multiple directories, print directory names
+    if depth < 1:
+        break
+
+    " If listing multiple directories, print directory names "
     if len(directoriesToList) > 1 and os.path.isdir(directory):
         print(colors.GREY, directory)
 
