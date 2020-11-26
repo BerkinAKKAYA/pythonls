@@ -5,10 +5,15 @@ import icons
 
 args = sys.argv[1:]
 directoriesToList = []
+depth = 0
 
 for arg in args:
     if arg[0] != "-":
         directoriesToList.append(arg)
+
+    splitted = arg.split("=")
+    if splitted[0] == "--tree":
+        depth = int(splitted[1])
 
 directoriesToList = directoriesToList or ["."]
 
@@ -26,7 +31,7 @@ def PrintItem(itemType, itemName, indent=0):
 
     print(prepend, itemName)
 
-def PrintDirectory(path, indent=0):
+def PrintDirectory(path, indent=0, depth=0):
     # Convert path to Full Path
     if path[0] != "/":
         path = os.getcwd() + "/" + (path if path != "." else "")
@@ -38,7 +43,7 @@ def PrintDirectory(path, indent=0):
         "VIDEO": [],
         "PHOTO": [],
         "FILE": []
-    }
+     }
 
     for item in os.listdir(path):
         # Hide dotfiles if -a is not in args
@@ -62,6 +67,9 @@ def PrintDirectory(path, indent=0):
 
     for folder in sorted(folders):
         PrintItem("FOLDER", folder, indent)
+        
+        if depth > 0:
+            PrintDirectory(path + folder, indent + 2, depth - 1)
 
     for fileType in files:
         files[fileType].sort()
@@ -75,4 +83,4 @@ for directory in directoriesToList:
         print(colors.GREY, directory)
 
     if os.path.isdir(directory):
-        PrintDirectory(directory, 2)
+        PrintDirectory(directory, 2, depth-1)
