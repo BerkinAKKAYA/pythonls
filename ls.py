@@ -18,14 +18,17 @@ for arg in args:
 directoriesToList = directoriesToList or ["."]
 
 def PrintItem(itemType, itemName, indent=0):
-    prepend = " " * indent
+    prepend = colors.GREY + " " * (indent - 2) + "|-- "
+
+    if indent <= 2:
+        prepend = " " * indent
 
     if itemType == "FOLDER":
-        prepend += colors.RED2 + icons.FOLDER
+        prepend += colors.BLUE2 + icons.FOLDER
     if itemType == "FILE":
-        prepend += colors.BLUE2 + icons.FILE
+        prepend += colors.GREEN2 + icons.FILE
     if itemType == "VIDEO":
-        prepend += colors.GREEN2 + icons.VIDEO
+        prepend += colors.RED2 + icons.VIDEO
     if itemType == "PHOTO":
         prepend += colors.YELLOW2 + icons.PHOTO
 
