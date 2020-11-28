@@ -30,6 +30,8 @@ def ToFullPath(path):
 
     return result
 
+directoriesToList = list(map(ToFullPath, set(directoriesToList)))
+
 def PrintItem(itemType, itemName, indent=0):
     prepend = colors.GREY + " " * (indent - 2) + "|-- "
 
@@ -48,8 +50,6 @@ def PrintItem(itemType, itemName, indent=0):
     print(prepend, itemName)
 
 def PrintDirectory(path, indent=0, depth=1):
-    path = ToFullPath(path)
-
     folders = []
     files = {
         "VIDEO": [],
