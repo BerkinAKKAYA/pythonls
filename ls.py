@@ -8,7 +8,7 @@ directoriesToList = []
 depth = 1
 
 for arg in args:
-    if arg[0] != "-":
+    if arg[0] != "-" and os.path.isdir(arg):
         directoriesToList.append(arg)
 
     splitted = arg.split("=")
@@ -16,6 +16,19 @@ for arg in args:
         depth = int(splitted[1])
 
 directoriesToList = directoriesToList or ["."]
+
+def ToFullPath(path):
+    result = path
+
+    " If it's not a full path, convert it "
+    if result[0] != "/":
+        result = os.getcwd() + "/" + (path if path != "." else "")
+
+    " If it doesn't end with a '/', add it "
+    if result[-1] != "/":
+        result += "/"
+
+    return result
 
 def PrintItem(itemType, itemName, indent=0):
     prepend = colors.GREY + " " * (indent - 2) + "|-- "
@@ -35,11 +48,7 @@ def PrintItem(itemType, itemName, indent=0):
     print(prepend, itemName)
 
 def PrintDirectory(path, indent=0, depth=1):
-    " Convert path to Full Path "
-    if path[0] != "/":
-        path = os.getcwd() + "/" + (path if path != "." else "")
-    if path[-1] != "/":
-        path += "/"
+    path = ToFullPath(path)
 
     folders = []
     files = {
@@ -85,8 +94,7 @@ for directory in directoriesToList:
         break
 
     " If listing multiple directories, print directory names "
-    if len(directoriesToList) > 1 and os.path.isdir(directory):
+    if len(directoriesToList) > 1:
         print(colors.GREY, directory)
 
-    if os.path.isdir(directory):
-        PrintDirectory(directory, 2, depth-1)
+    PrintDirectory(directory, 2, depth-1)
