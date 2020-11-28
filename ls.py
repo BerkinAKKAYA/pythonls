@@ -3,19 +3,19 @@ import sys
 import colors
 import icons
 
-args = sys.argv[1:]
-directoriesToList = []
+args = set(sys.argv[1:])
+directoriesToList = list(filter(lambda x: x[0] != "-", args)) or ["."]
 depth = 1
 
 for arg in args:
-    if arg[0] != "-" and os.path.isdir(arg):
-        directoriesToList.append(arg)
-
     splitted = arg.split("=")
+
     if splitted[0] == "--tree":
         depth = int(splitted[1])
 
-directoriesToList = directoriesToList or ["."]
+    if splitted[0] in ["-h", "--help"]:
+        print("Help is not ready yet")
+        depth = 0
 
 def ToFullPath(path):
     result = path
@@ -29,8 +29,6 @@ def ToFullPath(path):
         result += "/"
 
     return result
-
-directoriesToList = list(map(ToFullPath, set(directoriesToList)))
 
 def PrintItem(itemType, itemName, indent=0):
     prepend = colors.GREY + " " * (indent - 2) + "|-- "
@@ -50,6 +48,8 @@ def PrintItem(itemType, itemName, indent=0):
     print(prepend, itemName)
 
 def PrintDirectory(path, indent=0, depth=1):
+    path = ToFullPath(path)
+
     folders = []
     files = {
         "VIDEO": [],

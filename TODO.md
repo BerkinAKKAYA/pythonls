@@ -1,6 +1,9 @@
 -   [x] List folders before files
 -   [x] Functionality to accept multiple folders as input
--   [ ] Add --tree=DEPTH flag
+-   [x] Add --tree=DEPTH flag
 -   [ ] Add --sort=EXTENSION and --sort=NAME flags
--   [ ] Show different icons for images, videos and others
+-   [ ] Add more icons and colors
 -   [*] Add "\*" wildcard
+-   [ ] Add Help Text
+-   [ ] Add Git Status Info
+-   [ ] Add Long Info (Size, Access Time...)
