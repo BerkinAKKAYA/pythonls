@@ -1,4 +1,0 @@
-FILE = "  "
-FOLDER = "  "
-VIDEO = "  "
-PHOTO = "  "
