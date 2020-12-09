@@ -2,4 +2,4 @@
 
 `ls` alternative, inspired by [colorls](https://github.com/athityakumar/colorls)
 
-![Screenshot](https://github.com/BerkinAkkaya/pythonls/SS.png)
+![Screenshot](https://github.com/BerkinAKKAYA/pythonls/blob/main/SS.png?raw=true)
