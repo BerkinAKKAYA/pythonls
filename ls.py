@@ -106,6 +106,6 @@ for directory in directoriesToList:
 
     " If listing multiple directories, print directory names "
     if len(directoriesToList) > 1:
-        print(colors.GREY, directory)
+        print(colors.LIST["GREY"], directory)
 
     PrintDirectory(directory, 2, depth-1)
