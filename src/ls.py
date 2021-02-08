@@ -37,8 +37,10 @@ def PrintItem(itemType, itemName, indent=0):
         prepend = " " * indent
 
     if itemType in styles.LIST:
-        # First color, then icon
-        prepend += colors.LIST[styles.LIST[itemType][1]] + styles.LIST[itemType][0] + " "
+        # Color
+        prepend += colors.LIST[styles.LIST[itemType][1]]
+        # Name
+        prepend += styles.LIST[itemType][0]
 
     print(prepend, itemName)
 
@@ -55,6 +57,7 @@ def PrintDirectory(path, indent=0, depth=1):
         "CSS": [],
         "JS": [],
         "JSON": [],
+        "PDF": [],
      }
 
     for item in os.listdir(path):
@@ -82,6 +85,8 @@ def PrintDirectory(path, indent=0, depth=1):
             files["CSS"].append(item)
         elif extension in ["js"]:
             files["JS"].append(item)
+        elif extension in ["pdf"]:
+            files["PDF"].append(item)
         else:
             files["FILE"].append(item)
 

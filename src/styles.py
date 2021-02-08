@@ -1,11 +1,13 @@
 LIST = {
-    "FILE": ["", "BLUE2"],
-    "FOLDER": ["", "GREEN2"],
-    "VIDEO": ["", "RED2"],
-    "AUDIO": ["", "YELLOW2"],
-    "PHOTO": ["", "VIOLET2"],
+    "FILE": ["", "BLUE"],
+    "FOLDER": ["", "GREEN"],
+    "VIDEO": ["", "RED"],
+    "AUDIO": ["", "YELLOW"],
+    "PHOTO": ["", "VIOLET"],
 
-    "HTML": ["", "BEIGE2"],
-    "CSS": ["", "BEIGE2"],
-    "JS": ["", "BEIGE2"],
+    "HTML": ["", "BEIGE"],
+    "CSS": ["", "BEIGE"],
+    "JS": ["", "BEIGE"],
+
+    "PDF": ["", "YELLOW"],
 }
