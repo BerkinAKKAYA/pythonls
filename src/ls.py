@@ -1,6 +1,5 @@
 import os
 import sys
-import colors
 import styles
 
 args = set(sys.argv[1:])
@@ -31,16 +30,18 @@ def ToFullPath(path):
     return result
 
 def PrintItem(itemType, itemName, indent=0):
-    prepend = colors.LIST["GREY"] + " " * (indent - 2) + "|-- "
+    prepend = styles.COLORS["GREY"] + " " * (indent - 2) + "|-- "
 
     if indent <= 2:
         prepend = " " * indent
 
-    if itemType in styles.LIST:
+    if itemType in styles.STYLES:
         # Color
-        prepend += colors.LIST[styles.LIST[itemType][1]]
+        prepend += styles.COLORS[styles.STYLES[itemType][1]]
         # Name
-        prepend += styles.LIST[itemType][0]
+        prepend += styles.STYLES[itemType][0]
+        # Add Spacing
+        prepend += " "
 
     print(prepend, itemName)
 
@@ -111,6 +112,6 @@ for directory in directoriesToList:
 
     " If listing multiple directories, print directory names "
     if len(directoriesToList) > 1:
-        print(colors.LIST["GREY"], directory)
+        print(styles.COLORS["GREY"], directory)
 
     PrintDirectory(directory, 2, depth-1)
