@@ -1,16 +1,21 @@
 STYLES = {
     "FILE": ["", "BLUE"],
     "FOLDER": ["", "GREEN"],
-    "VIDEO": ["", "RED"],
-    "AUDIO": ["", "YELLOW"],
-    "PHOTO": ["", "VIOLET"],
 
-    "HTML": ["", "BEIGE"],
-    "CSS": ["", "BEIGE"],
-    "JS": ["", "BEIGE"],
+    "mp4": ["", "RED"],
+    "mkv": ["", "RED"],
 
-    "PDF": ["", "YELLOW"],
-    "SRT": ["", "YELLOW"],
+    "mp3": ["", "YELLOW"],
+
+    "jpg": ["", "VIOLET"],
+    "png": ["", "VIOLET"],
+
+    "html": ["", "BEIGE"],
+    "css": ["", "BEIGE"],
+    "js": ["", "BEIGE"],
+
+    "pdf": ["", "YELLOW"],
+    "srt": ["", "YELLOW"],
 }
 
 COLORS = {

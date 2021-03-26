@@ -39,17 +39,19 @@ def ToFullPath(path):
 
     return result
 
-def PrintItem(itemType, itemName, indent=0):
+def PrintItem(extension, itemName, indent=0):
     prepend = styles.COLORS["GREY"] + " " * (indent - 2) + "|-- "
 
     if indent <= 2:
         prepend = " " * indent
 
-    if itemType in styles.STYLES:
-        # Color
-        prepend += styles.COLORS[styles.STYLES[itemType][1]]
-        # Name
-        prepend += styles.STYLES[itemType][0]
+    # Print Standart Style if Not Defined
+    if extension not in styles.STYLES:
+        extension = "FILE"
+
+    # Prepend Color and Icon
+    prepend += styles.COLORS[styles.STYLES[extension][1]]
+    prepend += styles.STYLES[extension][0]
 
     print(prepend, itemName)
 
@@ -61,46 +63,13 @@ def PrintDirectory(path, indent=0, depth=1):
         items = filter(lambda item: (item[0] != "."), items)
 
     folders = []
-    files = {
-        "VIDEO": [],
-        "PHOTO": [],
-        "FILE": [],
-        "AUDIO": [],
-        "HTML": [],
-        "CSS": [],
-        "JS": [],
-        "JSON": [],
-        "PDF": [],
-        "SRT": [],
-    }
+    files = []
 
     for item in items:
-        # Print as FOLDER and continue if it's a folder
         if os.path.isdir(path + item):
             folders.append(item)
-            continue
-
-        # Find out the extension
-        extension = item.split(".")[-1] if "." in item[1:] else ""
-
-        if extension in ["mkv", "mp4", "webm"]:
-            files["VIDEO"].append(item)
-        elif extension in ["jpg", "jpeg", "png"]:
-            files["PHOTO"].append(item)
-        elif extension in ["mp3", "waw"]:
-            files["AUDIO"].append(item)
-        elif extension in ["html"]:
-            files["HTML"].append(item)
-        elif extension in ["css", "sass", "scss"]:
-            files["CSS"].append(item)
-        elif extension in ["js"]:
-            files["JS"].append(item)
-        elif extension in ["pdf"]:
-            files["PDF"].append(item)
-        elif extension in ["srt"]:
-            files["SRT"].append(item)
         else:
-            files["FILE"].append(item)
+            files.append(item)
 
     for folder in sorted(folders):
         PrintItem("FOLDER", folder, indent)
@@ -108,23 +77,16 @@ def PrintDirectory(path, indent=0, depth=1):
         if depth > 0:
             PrintDirectory(path + folder, indent + 2, depth - 1)
 
-    for fileType in files:
-        files[fileType].sort()
-
-    if sortBy == "fileType":
-        for fileType in files:
-            for file in files[fileType]:
-                PrintItem(fileType, file, indent)
+    # Sort by File Type or Name
     if sortBy == "name":
-        allFiles = []
-        for fileType in files:
-            for file in files[fileType]:
-                allFiles.append([file, fileType])
+        files.sort()
+    else:
+        files.sort(key=lambda item: item.split(".")[-1])
 
-        allFiles.sort()
-
-        for file in allFiles:
-            PrintItem(file[1], file[0], indent)
+    # Print Files
+    for file in files:
+        extension = file.split(".")[-1] if "." in file else ""
+        PrintItem(extension, file, indent)
 
 for directory in directoriesToList:
     if depth < 1:
@@ -133,7 +95,7 @@ for directory in directoriesToList:
     if not os.path.isdir(directory):
         continue
 
-    " If listing multiple directories, print directory names "
+    # If listing multiple directories, print directory names
     if len(directoriesToList) > 1:
         print(styles.COLORS["GREY"], directory)
 
