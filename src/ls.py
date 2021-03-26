@@ -5,6 +5,7 @@ import styles
 args = set(sys.argv[1:])
 directoriesToList = list(filter(lambda x: x[0] != "-", args)) or ["."]
 depth = 1
+sortBy = "fileType"
 
 for arg in args:
     splitted = arg.split("=")
@@ -13,8 +14,17 @@ for arg in args:
         depth = int(splitted[1])
 
     if splitted[0] in ["-h", "--help"]:
-        print("Help is not ready yet")
         depth = 0
+        print("""
+            pythonls by Berkin AKKAYA
+
+            -h      Show Help
+            --tree  Show Directory Tree
+            --name  Sort By Name
+        """)
+
+    if splitted[0] in ["-n", "--name"]:
+        sortBy = "name"
 
 def ToFullPath(path):
     result = path
@@ -40,8 +50,6 @@ def PrintItem(itemType, itemName, indent=0):
         prepend += styles.COLORS[styles.STYLES[itemType][1]]
         # Name
         prepend += styles.STYLES[itemType][0]
-        # Add Spacing
-        prepend += " "
 
     print(prepend, itemName)
 
@@ -59,7 +67,8 @@ def PrintDirectory(path, indent=0, depth=1):
         "JS": [],
         "JSON": [],
         "PDF": [],
-     }
+        "SRT": [],
+    }
 
     for item in os.listdir(path):
         # Hide dotfiles if -a is not in args
@@ -88,6 +97,8 @@ def PrintDirectory(path, indent=0, depth=1):
             files["JS"].append(item)
         elif extension in ["pdf"]:
             files["PDF"].append(item)
+        elif extension in ["srt"]:
+            files["SRT"].append(item)
         else:
             files["FILE"].append(item)
 
@@ -100,8 +111,20 @@ def PrintDirectory(path, indent=0, depth=1):
     for fileType in files:
         files[fileType].sort()
 
-        for f in files[fileType]:
-            PrintItem(fileType, f, indent)
+    if sortBy == "fileType":
+        for fileType in files:
+            for file in files[fileType]:
+                PrintItem(fileType, file, indent)
+    if sortBy == "name":
+        allFiles = []
+        for fileType in files:
+            for file in files[fileType]:
+                allFiles.append([file, fileType])
+
+        allFiles.sort()
+
+        for file in allFiles:
+            PrintItem(file[1], file[0], indent)
 
 for directory in directoriesToList:
     if depth < 1:

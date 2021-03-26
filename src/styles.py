@@ -10,6 +10,7 @@ STYLES = {
     "JS": ["", "BEIGE"],
 
     "PDF": ["", "YELLOW"],
+    "SRT": ["", "YELLOW"],
 }
 
 COLORS = {
