@@ -81,7 +81,7 @@ def PrintDirectory(path, indent=0, depth=1):
     if sortBy == "name":
         files.sort()
     else:
-        files.sort(key=lambda item: item.split(".")[-1])
+        files.sort(key=lambda item: (item.split(".")[-1], item))
 
     # Print Files
     for file in files:
