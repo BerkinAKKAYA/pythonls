@@ -10,7 +10,7 @@ sortBy = "fileType"
 for arg in args:
     splitted = arg.split("=")
 
-    if splitted[0] == "--tree":
+    if splitted[0] in ["-t", "--tree"]:
         depth = int(splitted[1])
 
     if splitted[0] in ["-h", "--help"]:
