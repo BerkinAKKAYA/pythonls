@@ -1,6 +1,6 @@
 import os
 import sys
-import styles
+import config
 
 args = set(sys.argv[1:])
 directoriesToList = list(filter(lambda x: x[0] != "-", args)) or ["."]
@@ -40,18 +40,18 @@ def ToFullPath(path):
     return result
 
 def PrintItem(extension, itemName, indent=0):
-    prepend = styles.COLORS["GREY"] + " " * (indent - 2) + "|-- "
+    prepend = config.COLORS["GREY"] + " " * (indent - 2) + "|-- "
 
     if indent <= 2:
         prepend = " " * indent
 
     # Print Standart Style if Not Defined
-    if extension not in styles.STYLES:
+    if extension not in config.STYLES:
         extension = "FILE"
 
     # Prepend Color and Icon
-    prepend += styles.COLORS[styles.STYLES[extension][1]]
-    prepend += styles.STYLES[extension][0]
+    prepend += config.COLORS[config.STYLES[extension][1]]
+    prepend += config.STYLES[extension][0]
 
     print(prepend, itemName)
 
@@ -97,6 +97,6 @@ for directory in directoriesToList:
 
     # If listing multiple directories, print directory names
     if len(directoriesToList) > 1:
-        print(styles.COLORS["GREY"], directory)
+        print(config.COLORS["GREY"], directory)
 
     PrintDirectory(directory, 2, depth-1)
