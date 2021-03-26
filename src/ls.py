@@ -55,6 +55,10 @@ def PrintItem(itemType, itemName, indent=0):
 
 def PrintDirectory(path, indent=0, depth=1):
     path = ToFullPath(path)
+    items = os.listdir(path)
+
+    if "-a" not in args:
+        items = filter(lambda item: (item[0] != "."), items)
 
     folders = []
     files = {
@@ -70,11 +74,7 @@ def PrintDirectory(path, indent=0, depth=1):
         "SRT": [],
     }
 
-    for item in os.listdir(path):
-        # Hide dotfiles if -a is not in args
-        if item[0] == "." and "-a" not in args:
-            continue
-
+    for item in items:
         # Print as FOLDER and continue if it's a folder
         if os.path.isdir(path + item):
             folders.append(item)
