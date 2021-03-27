@@ -96,8 +96,10 @@ def PrintDirectory(path, indent=0, depth=1):
     for file in files:
         extension = file.split(".")[-1] if "." in file else ""
 
-        if extension not in exclude:
-            PrintItem(extension, file, indent)
+        if extension in exclude and not showAll:
+            continue
+
+        PrintItem(extension, file, indent)
 
 for directory in directoriesToList:
     if depth < 1:
