@@ -7,9 +7,13 @@ directoriesToList = list(filter(lambda x: x[0] != "-", args)) or ["."]
 depth = 1
 sortBy = "fileType"
 exclude = []
+showAll = False
 
 for arg in args:
     splitted = arg.split("=")
+
+    if splitted[0] in ["-a", "--all"]:
+        showAll = True
 
     if splitted[0] in ["-t", "--tree"]:
         depth = int(splitted[1])
@@ -64,7 +68,7 @@ def PrintDirectory(path, indent=0, depth=1):
     path = ToFullPath(path)
     items = os.listdir(path)
 
-    if "-a" not in args:
+    if not showAll:
         items = filter(lambda item: (item[0] != "."), items)
 
     folders = []
