@@ -6,6 +6,7 @@ args = set(sys.argv[1:])
 directoriesToList = list(filter(lambda x: x[0] != "-", args)) or ["."]
 depth = 1
 sortBy = "fileType"
+exclude = []
 
 for arg in args:
     splitted = arg.split("=")
@@ -25,6 +26,10 @@ for arg in args:
 
     if splitted[0] in ["-n", "--name"]:
         sortBy = "name"
+
+    if splitted[0] in ["-x", "--exclude"]:
+        exclude = splitted[1].split(",")
+        exclude = list(map(lambda ext: ext.strip(), exclude))
 
 def ToFullPath(path):
     result = path
@@ -86,7 +91,9 @@ def PrintDirectory(path, indent=0, depth=1):
     # Print Files
     for file in files:
         extension = file.split(".")[-1] if "." in file else ""
-        PrintItem(extension, file, indent)
+
+        if extension not in exclude:
+            PrintItem(extension, file, indent)
 
 for directory in directoriesToList:
     if depth < 1:
