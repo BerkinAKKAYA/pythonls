@@ -4,6 +4,7 @@ STYLES = {
 
     "mp4":      ["", "RED"],
     "mkv":      ["", "RED"],
+    "webm":      ["", "RED"],
 
     "mp3":      ["", "YELLOW"],
 
