@@ -64,7 +64,7 @@ def PrintItem(extension, itemName, indent=0):
 
     print(prepend, itemName)
 
-def PrintDirectory(path, indent=0, depth=1):
+def PrintDirectory(path, indent, depth):
     path = ToFullPath(path)
     items = os.listdir(path)
 
