@@ -15,6 +15,7 @@ STYLES = {
     "css":      ["", "BEIGE"],
     "js":       ["", "BEIGE"],
     "py":       ["", "BEIGE"],
+    "rs":       ["", "BEIGE"],
 
     "json":     ["", "YELLOW"],
 

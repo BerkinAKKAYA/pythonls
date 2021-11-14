@@ -55,16 +55,13 @@ def PrintItem(extension, itemName, indent=0):
         prepend = " " * indent
 
     # Print Standart Style if Not Defined
-    if extension not in config.STYLES:
-        extension = "FILE"
+    type = extension if extension in config.STYLES else "FILE"
 
     # Prepend Color and Icon
-    prepend += config.COLORS[config.STYLES[extension][1]]
-    prepend += config.STYLES[extension][0]
+    prepend += config.COLORS[config.STYLES[type][1]]
+    prepend += config.STYLES[type][0]
 
-    if (extension in ["FILE", "FOLDER"]):
-        itemName = itemName
-    else:
+    if extension not in ["FILE", "FOLDER"]:
         itemName = ".".join(itemName.split(".")[:-1]) + config.COLORS["GREY"] + "." + extension
 
     print(prepend, itemName)
