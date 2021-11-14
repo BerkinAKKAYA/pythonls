@@ -61,3 +61,4 @@ COLORS = {
 }
 
 HideKnownExtensions = True
+HideNodeModules = True

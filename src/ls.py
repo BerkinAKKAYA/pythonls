@@ -78,6 +78,9 @@ def PrintDirectory(path, indent, depth):
     files = []
 
     for item in items:
+        if config.HideNodeModules and item == "node_modules":
+            continue
+
         if os.path.isdir(path + item):
             folders.append(item)
         else:
