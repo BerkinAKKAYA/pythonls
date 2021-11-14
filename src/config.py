@@ -60,5 +60,4 @@ COLORS = {
     "WHITEBG"  : '\33[47m',
 }
 
-HideKnownExtensions = True
 HideNodeModules = True

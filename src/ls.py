@@ -8,7 +8,6 @@ depth = 1
 sortBy = "fileType"
 exclude = []
 showAll = False
-hideExtensions = config.HideKnownExtensions
 
 for arg in args:
     splitted = arg.split("=")
@@ -18,9 +17,6 @@ for arg in args:
 
     if splitted[0] in ["-t", "--tree"]:
         depth = int(splitted[1])
-
-    if splitted[0] in ["-e", "--show-extensions"]:
-        hideExtensions = False
 
     if splitted[0] in ["-h", "--help"]:
         depth = 0
@@ -66,8 +62,10 @@ def PrintItem(extension, itemName, indent=0):
     prepend += config.COLORS[config.STYLES[extension][1]]
     prepend += config.STYLES[extension][0]
 
-    if (hideExtensions) and (extension in config.STYLES.keys()) and (extension not in ["FILE", "FOLDER"]):
-        itemName = ".".join(itemName.split(".")[:-1])
+    if (extension in ["FILE", "FOLDER"]):
+        itemName = itemName
+    else:
+        itemName = ".".join(itemName.split(".")[:-1]) + config.COLORS["GREY"] + "." + extension
 
     print(prepend, itemName)
 
