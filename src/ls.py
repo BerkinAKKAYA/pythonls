@@ -62,6 +62,9 @@ def PrintItem(extension, itemName, indent=0):
     prepend += config.COLORS[config.STYLES[extension][1]]
     prepend += config.STYLES[extension][0]
 
+    if (config.HideKnownExtensions == True) and (extension in config.STYLES.keys()) and (extension not in ["FILE", "FOLDER"]):
+        itemName = ".".join(itemName.split(".")[:-1])
+
     print(prepend, itemName)
 
 def PrintDirectory(path, indent, depth):

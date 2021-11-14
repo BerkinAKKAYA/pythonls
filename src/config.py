@@ -59,3 +59,5 @@ COLORS = {
     "BEIGEBG"  : '\33[46m',
     "WHITEBG"  : '\33[47m',
 }
+
+HideKnownExtensions = True
