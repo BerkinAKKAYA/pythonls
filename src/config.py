@@ -7,16 +7,20 @@ STYLES = {
     "webm":      ["", "BEIGE"],
     "mp3":      ["", "BEIGE"],
 
-    "jpg":      ["", "VIOLET"],
-    "png":      ["", "VIOLET"],
-    "svg":      ["", "VIOLET"],
+    "jpg":      ["", "VIOLET"],
+    "png":      ["", "VIOLET"],
+    "svg":      ["", "VIOLET"],
 
     "html":     ["", "BEIGE"],
-    "css":      ["", "BEIGE"],
-    "js":       ["", "BEIGE"],
+    "css":      ["", "BEIGE"],
+    "js":       ["", "BEIGE"],
+    "py":       ["", "BEIGE"],
+
+    "json":     ["", "YELLOW"],
 
     "pdf":      ["", "YELLOW"],
     "srt":      ["", "YELLOW"],
+    "md":       ["", "YELLOW2"],
 }
 
 COLORS = {
