@@ -61,7 +61,7 @@ def PrintItem(extension, itemName, indent=0):
     prepend += config.COLORS[config.STYLES[type][1]]
     prepend += config.STYLES[type][0]
 
-    if extension not in ["FILE", "FOLDER"]:
+    if extension and extension not in ["FILE", "FOLDER"]:
         itemName = ".".join(itemName.split(".")[:-1]) + config.COLORS["GREY"] + "." + extension
 
     print(prepend, itemName)
